@@ -1,12 +1,12 @@
 using Ambition;
 using PluginService.View;
+using Gee;
 namespace PluginService.Controller {
 	public class Root : Object {
 
 		public Result index( State state ) {
 			var recent_plugins = new Almanna.Search<PluginService.Model.DB.Plugin>()
-				.gt( "plugin_id", 0 )
-				.order_by("date_modified")
+				.order_by( "date_modified", true )
 				.page(1)
 				.rows(5)
 				.list();

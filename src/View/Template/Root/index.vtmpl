@@ -14,25 +14,6 @@
 </div>
 
 <h2>Recently Updated</h2>
-<table class="table">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Version</th>
-			<th>Date</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-@for ( var i = recent_plugins.size - 1; i >= 0; i-- ) {
-		<tr>
-			<td><a href="/plugins/@{recent_plugins[i].plugin_id.to_string()}">@{recent_plugins[i].name}</a></td>
-			<td>@{recent_plugins[i].version}</td>
-			<td>@{recent_plugins[i].date_modified.format("%Y-%m-%d")}</td>
-			<td>@{recent_plugins[i].description}</td>
-		</tr>	
-@}
-	</tbody>
-</table>
+@process( "Component.plugin_list", recent_plugins )
 
 @process("Component.footer")
