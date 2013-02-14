@@ -1,0 +1,6 @@
+@parameters( ArrayList<Plugin> plugins )
+@using PluginService.Model.DB
+@using Gee
+@process( "Component.header", "Plugin List" )
+@process( "Component.plugin_list", plugins )
+@process("Component.footer")

@@ -1,6 +1,6 @@
 using Ambition;
 using PluginService.View;
-namespace PluginService.Controller {
+namespace PluginService.Controller.Service {
 	public class Search : Object {
 
 		public Result index( State state ) {

@@ -1,10 +1,12 @@
 SET( APP_VALA_FILES
     Controller/Root.vala
-    Controller/Plugin.vala
-    Controller/Search.vala
+    Controller/Plugins.vala
+    Controller/Service/Plugin.vala
+    Controller/Service/Search.vala
 
     Form/PluginGet.vala
 
+    Model/Markdown.vala
     Model/DB/AlmannaLoader.vala
     Model/DB/Author.vala
     Model/DB/Plugin.vala
@@ -62,8 +64,9 @@ add_definitions(${APP_CFLAGS})
 link_directories( ${APP_LIB_PATHS} )
 add_library(${APPNAME} SHARED ${APPLIB_VALA_C})
 add_executable(${BINNAME} ${APPBIN_VALA_C})
-target_link_libraries(${APPNAME} ${APP_DEPS_LIBRARIES} ${APP_PLUGIN_PACKAGES} gthread-2.0)
+target_link_libraries(${APPNAME} ${APP_DEPS_LIBRARIES} ${APP_PLUGIN_PACKAGES} markdown gthread-2.0)
 target_link_libraries(${BINNAME} ${APPNAME} gthread-2.0)
 
 install (TARGETS ${APPNAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
 install (TARGETS ${BINNAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
+

@@ -13,5 +13,9 @@ namespace PluginService.Controller {
 			return new Template.Root.index(recent_plugins);
 		}
 
+		public Result about( State state ) {
+			return new Template.Root.about();
+		}
+
 	}
 }

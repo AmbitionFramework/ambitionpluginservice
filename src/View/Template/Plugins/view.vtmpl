@@ -1,0 +1,20 @@
+@parameters( Plugin plugin )
+@using PluginService.Model.DB
+@process( "Component.header", "Plugin: " + plugin.name )
+<dl class="dl-horizontal">
+	<dt>Version</dt>
+	<dd>@{plugin.version}</dd>
+	<dt>Size</dt>
+	<dd>@{plugin.size_k.to_string()} k</dd>
+	<dt>Description</dt>
+	<dd>@{plugin.description}</dd>
+@if ( plugin.url != null ) {
+	<dt>URL</dt>
+	<dd><a href="@{plugin.url}">@{plugin.url}</a></dd>
+@}
+</dl>
+
+<h2>Documentation</h2>
+@{plugin.render_documentation()}
+
+@process("Component.footer")
