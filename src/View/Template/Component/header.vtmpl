@@ -1,0 +1,24 @@
+@parameters( string? title, bool? show_title_on_page = false )
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<title>@{(title != null ? title : "Ambition Plugins" )}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body {
+			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+		}
+	</style>
+	<link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
+	</head>
+
+	<body>
+@process("Component.navbar")
+
+	<div class="container">
+@if ( title != null && show_title_on_page == true ) {
+		<h1>@{title}</h1>
+@}
