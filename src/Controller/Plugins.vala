@@ -19,6 +19,8 @@ namespace PluginService.Controller {
 			var plugin = new Almanna.Search<PluginService.Model.DB.Plugin>()
 				.eq( "plugin_id", int.parse(plugin_id) )
 				.single();
+			plugin.views++;
+			plugin.save();
 			return new Template.Plugins.view(plugin);
 		}
 

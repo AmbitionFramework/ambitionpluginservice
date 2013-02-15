@@ -12,6 +12,7 @@ SET( APP_VALA_FILES
     Model/DB/Plugin.vala
     Model/DB/PluginDocumentation.vala
     Model/DB/PluginHistory.vala
+    Model/DB/PluginInstall.vala
 
     View/JsonView.vala
     View/JSON/Search.vala

@@ -56,6 +56,10 @@ namespace PluginService.Model.DB {
 				stderr.printf( "Error adding primary key to entity: %s\n", e.message );
 			}
 		}
+
+		public string sanitized_email() {
+			return this.email.replace( "@", " -a-t- ").replace( ".", " -dot- " );
+		}
 	}
 }
 

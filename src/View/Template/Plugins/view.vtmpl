@@ -14,8 +14,14 @@
 	<dd>@{plugin.version}</dd>
 	<dt>Size</dt>
 	<dd>@{plugin.size_k.to_string()} k</dd>
+	<dt>Author</dt>
+	<dd>@{plugin.author()}</dd>
 	<dt>Description</dt>
 	<dd>@{plugin.description}</dd>
+	<dt>Last Updated</dt>
+	<dd>@{plugin.date_modified.format("%Y-%m-%d")}</dd>
+	<dt>Views</dt>
+	<dd>@{plugin.views.to_string()}</dd>
 @if ( plugin.url != null ) {
 	<dt>URL</dt>
 	<dd><a href="@{plugin.url}">@{plugin.url}</a></dd>

@@ -15,8 +15,10 @@ CREATE INDEX author_name ON author (name);
 CREATE TABLE plugin (
 	plugin_id serial primary key,
 	author_id integer not null,
-	active integer default 1,
-	size_k integer default 0,
+	active integer default 1 not null,
+	size_k integer default 0 not null,
+	views integer default 0 not null,
+	installs integer default 0 not null,
 	name varchar(128) not null,
 	version varchar(16) not null,
 	description text not null,
@@ -45,3 +47,13 @@ CREATE TABLE plugin_history (
 );
 
 CREATE INDEX plugin_history_plugin_id ON plugin_history (plugin_id);
+
+CREATE TABLE plugin_install (
+	plugin_install_id serial primary key,
+	plugin_id integer not null,
+	version varchar(16),
+	ip_address varchar(15) not null,
+	date_created timestamp
+);
+
+CREATE INDEX plugin_install_plugin_id ON plugin_install (plugin_id);

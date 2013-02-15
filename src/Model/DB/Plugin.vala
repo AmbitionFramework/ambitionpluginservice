@@ -10,6 +10,8 @@ namespace PluginService.Model.DB {
 		public int author_id { get; set; }
 		public int active { get; set; }
 		public int size_k { get; set; }
+		public int views { get; set; }
+		public int installs { get; set; }
 		public string name { get; set; }
 		public string version { get; set; }
 		public string description { get; set; }
@@ -32,6 +34,12 @@ namespace PluginService.Model.DB {
 			add_column( new Column<int>.with_name_type( "size_k", "integer" ) );
 			columns["size_k"].size = 4;
 			columns["size_k"].is_nullable = true;
+			
+			add_column( new Column<int>.with_name_type( "views", "integer" ) );
+			columns["views"].size = 4;
+			
+			add_column( new Column<int>.with_name_type( "installs", "integer" ) );
+			columns["installs"].size = 4;
 			
 			add_column( new Column<string>.with_name_type( "name", "character varying" ) );
 			columns["name"].size = 128;
@@ -62,6 +70,16 @@ namespace PluginService.Model.DB {
 			} catch (EntityError e) {
 				stderr.printf( "Error adding primary key to entity: %s\n", e.message );
 			}
+		}
+
+		public string? author() {
+			var author = new Search<Author>()
+				.eq( "author_id", this.author_id )
+				.single();
+			if ( author != null ) {
+				return "%s &lt;%s&gt;".printf( author.name, author.sanitized_email() );
+			}
+			return "";
 		}
 
 		public string? render_documentation() {
