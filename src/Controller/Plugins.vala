@@ -16,7 +16,6 @@ namespace PluginService.Controller {
 
 		public Result view ( State state ) {
 			string? plugin_id = state.request.get_capture("plugin_id");
-			Logger.warn(plugin_id);
 			var plugin = new Almanna.Search<PluginService.Model.DB.Plugin>()
 				.eq( "plugin_id", int.parse(plugin_id) )
 				.single();

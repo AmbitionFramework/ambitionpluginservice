@@ -65,7 +65,20 @@ namespace PluginService.Model.DB {
 		}
 
 		public string? render_documentation() {
-			return "";
+			var doc = new Search<PluginDocumentation>()
+				.eq( "plugin_id", this.plugin_id )
+				.single();
+			if ( doc != null ) {
+				switch ( doc.format ) {
+					case "txt":
+						return "<code>%s</code>".printf( doc.documentation );
+					case "html":
+						return doc.documentation;
+					case "md":
+						return PluginService.Model.PSMarkdown.process( doc.documentation );
+				}
+			}
+			return "No documentation available.";
 		}
 	}
 }

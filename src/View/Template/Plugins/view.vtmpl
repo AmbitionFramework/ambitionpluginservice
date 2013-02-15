@@ -1,6 +1,14 @@
 @parameters( Plugin plugin )
 @using PluginService.Model.DB
 @process( "Component.header", "Plugin: " + plugin.name )
+<style type="text/css">
+	.documentation {
+		border-top: 1px solid #333;
+		margin-top: 8px;
+		padding-top: 8px;
+	}
+</style>
+
 <dl class="dl-horizontal">
 	<dt>Version</dt>
 	<dd>@{plugin.version}</dd>
@@ -15,6 +23,8 @@
 </dl>
 
 <h2>Documentation</h2>
+<div class="documentation">
 @{plugin.render_documentation()}
+</div>
 
 @process("Component.footer")

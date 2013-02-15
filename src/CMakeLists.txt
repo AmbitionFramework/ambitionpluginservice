@@ -6,7 +6,7 @@ SET( APP_VALA_FILES
 
     Form/PluginGet.vala
 
-    Model/Markdown.vala
+    Model/PSMarkdown.vala
     Model/DB/AlmannaLoader.vala
     Model/DB/Author.vala
     Model/DB/Plugin.vala

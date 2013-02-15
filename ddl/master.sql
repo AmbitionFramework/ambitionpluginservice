@@ -31,6 +31,7 @@ CREATE INDEX plugin_name ON plugin (name);
 
 CREATE TABLE plugin_documentation (
 	plugin_id integer primary key,
+	format varchar(4) not null,
 	documentation text
 );
 
