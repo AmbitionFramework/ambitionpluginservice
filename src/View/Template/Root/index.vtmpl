@@ -7,7 +7,7 @@
 	<div class="span8">
 		<h1 style="text-align: center">Search Plugins</h1>
 		<form method="get" action="/search">
-			<input type="text" class="search-query input-block-level" placeholder="Search for Plugins...">
+			<input type="text" name="q" class="search-query input-block-level" placeholder="Search for Plugins...">
 		</form>
 	</div>
 	<div class="span2"></div>

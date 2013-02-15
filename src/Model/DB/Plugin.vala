@@ -1,4 +1,5 @@
 using Almanna;
+using Gee;
 namespace PluginService.Model.DB {
 	/**
 	 * Almanna Entity for table "plugin".
@@ -70,6 +71,14 @@ namespace PluginService.Model.DB {
 			} catch (EntityError e) {
 				stderr.printf( "Error adding primary key to entity: %s\n", e.message );
 			}
+		}
+
+		public static ArrayList<Plugin> do_search( string query ) {
+			var result_search = new Search<Plugin>()
+				.ilike( "name", "%" + query + "%" )
+				.ilike( "description", "%" + query + "%" )
+				.order_by( "( CASE WHEN name LIKE '%" + query + "%' THEN 0 WHEN description LIKE '%" + query + "%' THEN 1 END )" );
+			return result_search.list();
 		}
 
 		public string? author() {

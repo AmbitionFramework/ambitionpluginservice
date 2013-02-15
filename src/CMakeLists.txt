@@ -3,6 +3,7 @@ SET( APP_VALA_FILES
     Controller/Plugins.vala
     Controller/Service/Plugin.vala
     Controller/Service/Search.vala
+    Controller/Search.vala
 
     Form/PluginGet.vala
 
@@ -70,4 +71,5 @@ target_link_libraries(${BINNAME} ${APPNAME} gthread-2.0)
 
 install (TARGETS ${APPNAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
 install (TARGETS ${BINNAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
+
 
