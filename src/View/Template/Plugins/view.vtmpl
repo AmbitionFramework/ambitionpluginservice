@@ -28,7 +28,6 @@
 @}
 </dl>
 
-<h2>Documentation</h2>
 <div class="documentation">
 @{plugin.render_documentation()}
 </div>
