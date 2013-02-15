@@ -29,7 +29,7 @@ namespace PluginService.Model.DB {
 			columns["version"].is_nullable = true;
 			
 			add_column( new Column<string>.with_name_type( "filename", "character varying" ) );
-			columns["filename"].size = 16;
+			columns["filename"].size = 128;
 			columns["filename"].is_nullable = true;
 			
 			add_column( new Column<DateTime>.with_name_type( "date_uploaded", "timestamp without time zone" ) );
@@ -41,6 +41,22 @@ namespace PluginService.Model.DB {
 			} catch (EntityError e) {
 				stderr.printf( "Error adding primary key to entity: %s\n", e.message );
 			}
+		}
+
+		/**
+		 * Create a PluginHistory entry from an existing plugin.
+		 * @param plugin Plugin instance
+		 */
+		public static PluginHistory create_from_plugin( Plugin plugin ) {
+			var history = new PluginHistory();
+			history.plugin_id = plugin.plugin_id;
+			history.size_k = plugin.size_k;
+			history.version = plugin.version;
+			history.filename = plugin.filename;
+			history.date_uploaded = plugin.date_modified;
+			history.save();
+
+			return history;
 		}
 	}
 }

@@ -57,6 +57,31 @@ namespace PluginService.Model.DB {
 			}
 		}
 
+		/**
+		 * Get or create an author based on the author tag string.
+		 * ex: Foo Bar <foo@bar.org>
+		 * @param author_string Full author string
+		 * @return Instance of Author
+		 */
+		public static Author get_by_author_string( string author_string ) {
+			var name = author_string.substring( 0, author_string.index_of("<") - 1 );
+			var email = author_string.substring(
+				author_string.index_of("<") + 1,
+				author_string.length - author_string.index_of("<") - 1
+			);
+			var author = new Search<Author>()
+				.eq( "name", name )
+				.eq( "email", email )
+				.single();
+			if ( author == null ) {
+				author = new Author();
+				author.name = name;
+				author.email = email;
+				author.save();
+			}
+			return author;
+		}
+
 		public string sanitized_email() {
 			return this.email.replace( "@", " -a-t- ").replace( ".", " -dot- " );
 		}

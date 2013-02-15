@@ -1,4 +1,5 @@
 using Almanna;
+using Ambition.Plugin;
 using Gee;
 namespace PluginService.Model.DB {
 	/**
@@ -79,6 +80,40 @@ namespace PluginService.Model.DB {
 				.ilike( "description", "%" + query + "%" )
 				.order_by( "( CASE WHEN name LIKE '%" + query + "%' THEN 0 WHEN description LIKE '%" + query + "%' THEN 1 END )" );
 			return result_search.list();
+		}
+
+		public static Plugin generate_from_source( PluginManifest manifest, File archive_file, File? documentation ) {
+			var info = archive_file.query_info( FileAttribute.STANDARD_SIZE, FileQueryInfoFlags.NONE );
+			var plugin = new Plugin();
+			plugin.author_id = Author.get_by_author_string( manifest.author ).author_id;
+			plugin.size_k = (int) info.get_size() / 1024;
+			plugin.name = manifest.name;
+			plugin.version = manifest.version;
+			plugin.description = manifest.description;
+			plugin.filename = archive_file.get_basename();
+			plugin.url = manifest.url;
+			plugin.date_created = new DateTime.now_utc();
+			plugin.date_modified = new DateTime.now_utc();
+			plugin.save();
+
+			if ( documentation != null ) {
+				var extension = documentation.get_basename().substring( documentation.get_basename().last_index_of(".") + 1 );
+				var plugin_documentation = new PluginDocumentation();
+				plugin_documentation.plugin_id = plugin.plugin_id;
+				plugin_documentation.format = "txt";
+				if ( extension == "md" || extension == "html" ) {
+					plugin_documentation.format = extension;
+				}
+				uint8[] contents;
+				string etag;
+				documentation.load_contents( null, out contents, out etag );
+				plugin_documentation.documentation = (string) contents;
+				plugin_documentation.save();
+			}
+
+			PluginHistory.create_from_plugin(plugin);
+
+			return plugin;
 		}
 
 		public string? author() {
