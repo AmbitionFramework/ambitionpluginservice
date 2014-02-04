@@ -1,13 +1,18 @@
 using Ambition;
+using PluginService.Model;
 using PluginService.View;
 namespace PluginService.Controller.Service {
 	public class Search : Object {
 
-		public Result index( State state ) {
-			var search = new JSON.Search();
-			search.plugins.add( new JSON.Plugin( "SCGI", "1.0", "SCGI Engine" ) );
-			search.plugins.add( new JSON.Plugin( "Almanna", "1.0", "Enable Almanna ORM support in Ambition" ) );
-			return new JsonView(search);
+		public Object search( State state ) {
+			var search_entity = new Entity.Search();
+			var search_results = DB.Plugin.do_search("a");
+			foreach ( var plugin in search_results ) {
+				search_entity.plugins.add(
+					new Entity.Plugin( plugin.name, plugin.version, plugin.description )
+				);
+			}
+			return search_entity;
 		}
 
 	}

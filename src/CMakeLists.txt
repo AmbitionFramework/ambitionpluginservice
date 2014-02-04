@@ -5,6 +5,9 @@ SET( APP_VALA_FILES
     Controller/Service/Search.vala
     Controller/Search.vala
 
+    Entity/Plugin.vala
+    Entity/Search.vala
+
     Form/PluginGet.vala
 
     Model/PSMarkdown.vala
@@ -16,7 +19,6 @@ SET( APP_VALA_FILES
     Model/DB/PluginInstall.vala
 
     View/JsonView.vala
-    View/JSON/Search.vala
 )
 
 SET( APP_AM_VALA_FILES

@@ -12,6 +12,7 @@ namespace PluginService {
 		 */
 		public override bool init( string[] args ) {
 			Almanna.Repo.from_loader( new PluginService.Model.DB.AlmannaLoader() );
+			Ambition.ServiceThing.default_accept_type = "application/json";
 			return true;
 		}
 	}

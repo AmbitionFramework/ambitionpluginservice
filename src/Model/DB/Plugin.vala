@@ -78,7 +78,7 @@ namespace PluginService.Model.DB {
 			var result_search = new Search<Plugin>()
 				.ilike( "name", "%" + query + "%" )
 				.ilike( "description", "%" + query + "%" )
-				.order_by( "( CASE WHEN name LIKE '%" + query + "%' THEN 0 WHEN description LIKE '%" + query + "%' THEN 1 END )" );
+				.order_by_raw( "( CASE WHEN name LIKE '%" + query + "%' THEN 0 WHEN description LIKE '%" + query + "%' THEN 1 END )" );
 			return result_search.list();
 		}
 
