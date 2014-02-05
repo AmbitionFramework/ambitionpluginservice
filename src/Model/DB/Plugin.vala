@@ -82,6 +82,20 @@ namespace PluginService.Model.DB {
 			return result_search.list();
 		}
 
+		public static Plugin? get_newer( string name, string version ) {
+			try {
+				var result_search = new Search<Plugin>()
+					.eq( "name", name )
+					.single();
+				if ( result_search != null ) {
+					if ( result_search.version != version ) {
+						return result_search;
+					}
+				}
+			} catch (Error e) {}
+			return null;
+		}
+
 		public static Plugin generate_from_source( PluginManifest manifest, File archive_file, File? documentation ) {
 			var info = archive_file.query_info( FileAttribute.STANDARD_SIZE, FileQueryInfoFlags.NONE );
 			var plugin = new Plugin();
