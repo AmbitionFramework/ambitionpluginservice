@@ -5,6 +5,7 @@ SET( APP_VALA_FILES
     Controller/Service/Search.vala
     Controller/Search.vala
 
+    Entity/Error.vala
     Entity/Plugin.vala
     Entity/Search.vala
 
