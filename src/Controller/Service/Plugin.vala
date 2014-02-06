@@ -1,4 +1,5 @@
 using Ambition;
+using Ambition.Plugin;
 using PluginService.Model;
 using PluginService.View;
 namespace PluginService.Controller.Service {
@@ -6,6 +7,37 @@ namespace PluginService.Controller.Service {
 
 		public Result retrieve( State state ) {
 			return new CoreView.None();
+		}
+
+		public Object manifest( State state ) {
+			string? plugin_name = state.request.params["n"];
+			if ( plugin_name == null ) {
+				state.response.status = 400;
+				return new Entity.Error("Missing name");
+			}
+
+			var plugin = DB.Plugin.get_latest(plugin_name);
+			if ( plugin == null ) {
+				state.response.status = 404;
+				return new Entity.Error("Not found");
+			}
+
+			var parser = new Json.Parser();
+			var plugin_dir = Config.lookup("file_directory");
+			try {
+				if ( parser.load_from_file( "%s/%s-%s.manifest.json".printf( plugin_dir, plugin.name, plugin.version ) ) ) {
+					var manifest = (PluginManifest) Json.gobject_deserialize( typeof(PluginManifest), parser.get_root() );
+					var author = new Almanna.Search<DB.Author>().lookup( plugin.author_id );
+					manifest.author = "%s <%s>".printf( author.name, author.sanitized_email() );
+					return manifest;
+				}
+			} catch ( Error e ) {
+				state.response.status = 404;
+				return new Entity.Error("Not found");
+			}
+
+			state.response.status = 404;
+			return new Entity.Error("Not found");
 		}
 
 		public Object versions( State state ) {

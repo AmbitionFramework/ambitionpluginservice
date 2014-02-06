@@ -82,6 +82,16 @@ namespace PluginService.Model.DB {
 			return result_search.list();
 		}
 
+		public static Plugin? get_latest( string name ) {
+			try {
+				var result_search = new Search<Plugin>()
+					.eq( "name", name )
+					.single();
+				return result_search;
+			} catch (Error e) {}
+			return null;
+		}
+
 		public static Plugin? get_newer( string name, string version ) {
 			try {
 				var result_search = new Search<Plugin>()
