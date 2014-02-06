@@ -20,7 +20,7 @@ app.show_powered_by = yes
 scgi.port = 3200
 scgi.threads = 10
 
-file_directory = /home/nmelnick/plugin_files
+file_directory = /path/to/plugin_files
 
 almanna.provider = PostgreSQL
 almanna.connection_string = PostgreSQL://HOST=127.0.0.1;DB_NAME=pluginservice
