@@ -6,7 +6,31 @@ namespace PluginService.Controller.Service {
 	public class Plugin : Object {
 
 		public Result retrieve( State state ) {
-			return new CoreView.None();
+			string? plugin_name = state.request.params["n"];
+			if ( plugin_name == null ) {
+				state.response.status = 400;
+				return new CoreView.None();
+			}
+			DB.Plugin? plugin = null;
+			string? version = state.request.params["b"];
+			if ( version == null ) {
+				plugin = DB.Plugin.get_latest(plugin_name);
+			} else {
+				plugin = DB.Plugin.get_with_version( plugin_name, version );
+			}
+			if ( plugin == null ) {
+				state.response.status = 404;
+				return new CoreView.None();
+			}
+
+			var plugin_dir = Config.lookup("file_directory");
+			var file = File.new_for_path( "%s/%s-%s.tar.gz".printf( plugin_dir, plugin.name, plugin.version ) );
+			if ( file == null || ! file.query_exists() ) {
+				state.response.status = 404;
+				return new CoreView.None();
+			}
+
+			return new CoreView.File( file, "application/x-gzip" );
 		}
 
 		public Object manifest( State state ) {
