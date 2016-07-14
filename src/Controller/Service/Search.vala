@@ -4,7 +4,7 @@ using PluginService.View;
 namespace PluginService.Controller.Service {
 	public class Search : Object {
 
-		public Object search( State state ) {
+		public static Object? search( State state, Object? o ) {
 			string? query = state.request.params["q"];
 			if ( query == null ) {
 				state.response.status = 400;

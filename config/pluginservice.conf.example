@@ -27,3 +27,5 @@ almanna.connection_string = PostgreSQL://HOST=127.0.0.1;DB_NAME=pluginservice
 almanna.username = postgres
 almanna.password = postgres
 #almanna.log_level = debug
+
+upload.key = abcdef012345

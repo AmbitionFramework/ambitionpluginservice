@@ -5,7 +5,7 @@ using PluginService.View;
 namespace PluginService.Controller.Service {
 	public class Plugin : Object {
 
-		public Result retrieve( State state ) {
+		public static Result retrieve( State state ) {
 			string? plugin_name = state.request.params["n"];
 			if ( plugin_name == null ) {
 				state.response.status = 400;
@@ -33,7 +33,7 @@ namespace PluginService.Controller.Service {
 			return new CoreView.File( file, "application/x-gzip" );
 		}
 
-		public Object manifest( State state ) {
+		public static Object? manifest( State state, Object? o ) {
 			string? plugin_name = state.request.params["n"];
 			if ( plugin_name == null ) {
 				state.response.status = 400;
@@ -64,7 +64,7 @@ namespace PluginService.Controller.Service {
 			return new Entity.Error("Not found");
 		}
 
-		public Object versions( State state ) {
+		public static Object? versions( State state, Object? o ) {
 			string? list = state.request.params["l"];
 			if ( list == null ) {
 				state.response.status = 400;

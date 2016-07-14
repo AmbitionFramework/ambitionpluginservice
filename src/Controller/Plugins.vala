@@ -8,14 +8,14 @@ namespace PluginService.Controller {
 	 */
 	public class Plugins : Object {
 
-		public Result list ( State state ) {
+		public static Result list ( State state ) {
 			var plugins = new Almanna.Search<PluginService.Model.DB.Plugin>()
 				.order_by( "name" )
 				.list();
 			return new Template.Plugins.list(plugins);
 		}
 
-		public Result view ( State state ) {
+		public static Result view ( State state ) {
 			string? plugin_id = state.request.get_capture("plugin_id");
 			var plugin = new Almanna.Search<PluginService.Model.DB.Plugin>()
 				.eq( "plugin_id", int.parse(plugin_id) )
@@ -25,7 +25,7 @@ namespace PluginService.Controller {
 			return new Template.Plugins.view(plugin);
 		}
 
-		public Result generate( State state ) {
+		public static Result generate( State state ) {
 			string path = state.request.get_capture("file");
 			var file = File.new_for_path(path);
 			if ( file == null || ! file.query_exists() ) {
@@ -80,7 +80,7 @@ namespace PluginService.Controller {
 
 	}
 
-	public void clean_directory( File directory ) {
+	public static void clean_directory( File directory ) {
 		FileInfo file_info;
 		try {
 			var enumerator = directory.enumerate_children(

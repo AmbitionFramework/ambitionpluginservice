@@ -11,7 +11,7 @@ namespace PluginService.Controller {
 		 * Get search results.
 		 * @param state State object.
 		 */
-		public Result search( State state ) {
+		public static Result search( State state ) {
 			string? query = state.request.params["q"];
 			if ( query == null ) {
 				return new CoreView.Redirect("/");
