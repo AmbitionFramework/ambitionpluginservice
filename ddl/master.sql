@@ -55,7 +55,7 @@ CREATE TABLE plugin_install (
 	plugin_install_id serial primary key,
 	plugin_id integer not null,
 	version varchar(16),
-	ambition_version varchar(16),
+	ambition_version varchar(16) default '0.1.0',
 	ip_address varchar(15) not null,
 	date_created timestamp
 ) WITH OIDS;

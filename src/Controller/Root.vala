@@ -6,7 +6,8 @@ namespace PluginService.Controller {
 
 		public static Result index( State state ) {
 			var recent_plugins = new Almanna.Search<PluginService.Model.DB.Implementation.Plugin>()
-				.order_by( "date_modified", true )
+				.order_by( "date_created", true )
+				.eq( "latest", 1 )
 				.page(1)
 				.rows(5)
 				.list();

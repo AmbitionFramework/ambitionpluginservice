@@ -18,6 +18,8 @@
 	<dd>@{plugin.author()}</dd>
 	<dt>Description</dt>
 	<dd>@{plugin.description}</dd>
+	<dt>Ambition Versions</dt>
+	<dd>@{plugin.min_version} - @{plugin.max_version}</dd>
 	<dt>Last Updated</dt>
 	<dd>@{plugin.date_modified.format("%Y-%m-%d")}</dd>
 	<dt>Views</dt>

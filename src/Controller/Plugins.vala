@@ -11,6 +11,7 @@ namespace PluginService.Controller {
 		public static Result list ( State state ) {
 			var plugins = new Almanna.Search<PluginService.Model.DB.Implementation.Plugin>()
 				.order_by( "name" )
+				.eq( "latest", 1 )
 				.list();
 			return new Template.Plugins.list(plugins);
 		}

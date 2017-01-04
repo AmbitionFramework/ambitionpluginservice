@@ -17,6 +17,7 @@ namespace PluginService.Model.DB.Implementation {
 			var result_search = new Search<Plugin>()
 				.ilike( "name", "%" + query + "%" )
 				.ilike( "description", "%" + query + "%" )
+				.eq( "latest", 1 )
 				.order_by_raw( "( CASE WHEN name LIKE '%" + query + "%' THEN 0 WHEN description LIKE '%" + query + "%' THEN 1 END )" );
 			return result_search.list();
 		}
@@ -25,6 +26,7 @@ namespace PluginService.Model.DB.Implementation {
 			try {
 				var result_search = new Search<Plugin>()
 					.eq( "name", name )
+					.eq( "latest", 1 )
 					.single();
 				return result_search;
 			} catch (Error e) {}
@@ -117,6 +119,26 @@ namespace PluginService.Model.DB.Implementation {
 				}
 			}
 			return "No documentation available.";
+		}
+
+		public ArrayList<Plugin> get_versions() {
+			var plugins = new Search<Plugin>()
+				.eq( "author_id", this.author_id )
+				.eq( "name", this.name )
+				.order_by( "date_created", true );
+			return plugins.list();
+		}
+
+		public override void save() {
+			if (!in_storage) {
+				var plugins = get_versions();
+				foreach ( var version in plugins ) {
+					version.latest = 0;
+					version.save();
+				}
+				latest = 1;
+			}
+			base.save();
 		}
 	}
 }
