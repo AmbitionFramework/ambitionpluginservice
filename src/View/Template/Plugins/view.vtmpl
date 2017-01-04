@@ -1,4 +1,4 @@
-@parameters( Plugin plugin )
+@parameters( Implementation.Plugin plugin )
 @using PluginService.Model.DB
 @process( "Component.header", "Plugin: " + plugin.name )
 <style type="text/css">

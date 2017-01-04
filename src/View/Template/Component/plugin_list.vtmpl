@@ -1,4 +1,4 @@
-@parameters( ArrayList<Plugin> plugins, int? page = 1, int? pages = 0 )
+@parameters( ArrayList<Implementation.Plugin> plugins, int? page = 1, int? pages = 0 )
 @using Gee
 @using PluginService.Model.DB
 @if ( pages > 0 ) {

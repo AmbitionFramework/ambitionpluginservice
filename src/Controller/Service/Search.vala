@@ -12,7 +12,7 @@ namespace PluginService.Controller.Service {
 			}
 
 			var search_entity = new Entity.Search();
-			var search_results = DB.Plugin.do_search(query);
+			var search_results = DB.Implementation.Plugin.do_search(query);
 			foreach ( var plugin in search_results ) {
 				search_entity.plugins.add(
 					new Entity.Plugin( plugin.name, plugin.version, plugin.description )

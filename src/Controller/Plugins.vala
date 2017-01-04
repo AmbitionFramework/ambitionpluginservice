@@ -9,7 +9,7 @@ namespace PluginService.Controller {
 	public class Plugins : Object {
 
 		public static Result list ( State state ) {
-			var plugins = new Almanna.Search<PluginService.Model.DB.Plugin>()
+			var plugins = new Almanna.Search<PluginService.Model.DB.Implementation.Plugin>()
 				.order_by( "name" )
 				.list();
 			return new Template.Plugins.list(plugins);
@@ -17,7 +17,7 @@ namespace PluginService.Controller {
 
 		public static Result view ( State state ) {
 			string? plugin_id = state.request.get_capture("plugin_id");
-			var plugin = new Almanna.Search<PluginService.Model.DB.Plugin>()
+			var plugin = new Almanna.Search<PluginService.Model.DB.Implementation.Plugin>()
 				.eq( "plugin_id", int.parse(plugin_id) )
 				.single();
 			plugin.views++;
@@ -69,7 +69,7 @@ namespace PluginService.Controller {
 				Logger.error( "No documentation file: " + "%s/%s".printf( temp_name, manifest.documentation ) );
 				documentation = null;
 			}
-			PluginService.Model.DB.Plugin.generate_from_source( manifest, file, documentation );
+			PluginService.Model.DB.Implementation.Plugin.generate_from_source( manifest, file, documentation );
 
 			// Clean up temporary directory
 			clean_directory(temp_dir);

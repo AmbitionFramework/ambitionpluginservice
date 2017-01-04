@@ -1,4 +1,4 @@
-@parameters( ArrayList<Plugin> results )
+@parameters( ArrayList<Implementation.Plugin> results )
 @using PluginService.Model.DB
 @using Gee
 @process( "Component.header", "Search: " + state.request.params["q"] )

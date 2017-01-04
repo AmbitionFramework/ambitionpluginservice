@@ -13,11 +13,16 @@ SET( APP_VALA_FILES
 
     Model/PSMarkdown.vala
     Model/DB/AlmannaLoader.vala
-    Model/DB/Author.vala
-    Model/DB/Plugin.vala
-    Model/DB/PluginDocumentation.vala
-    Model/DB/PluginHistory.vala
-    Model/DB/PluginInstall.vala
+    Model/DB/Entity/Author.vala
+    Model/DB/Entity/Plugin.vala
+    Model/DB/Entity/PluginDocumentation.vala
+    Model/DB/Entity/PluginHistory.vala
+    Model/DB/Entity/PluginInstall.vala
+    Model/DB/Implementation/Author.vala
+    Model/DB/Implementation/Plugin.vala
+    Model/DB/Implementation/PluginDocumentation.vala
+    Model/DB/Implementation/PluginHistory.vala
+    Model/DB/Implementation/PluginInstall.vala
 
     View/JsonView.vala
 )
@@ -73,3 +78,4 @@ target_link_libraries(${BINNAME} ${APPNAME} gthread-2.0)
 
 install (TARGETS ${APPNAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
 install (TARGETS ${BINNAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
+

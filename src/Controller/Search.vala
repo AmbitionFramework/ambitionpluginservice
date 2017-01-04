@@ -16,7 +16,7 @@ namespace PluginService.Controller {
 			if ( query == null ) {
 				return new CoreView.Redirect("/");
 			}
-			var results = PluginService.Model.DB.Plugin.do_search(query);
+			var results = PluginService.Model.DB.Implementation.Plugin.do_search(query);
 			return new Template.Search.search(results);
 		}
 

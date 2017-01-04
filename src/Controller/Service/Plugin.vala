@@ -11,12 +11,12 @@ namespace PluginService.Controller.Service {
 				state.response.status = 400;
 				return new CoreView.None();
 			}
-			DB.Plugin? plugin = null;
+			DB.Implementation.Plugin? plugin = null;
 			string? version = state.request.params["b"];
 			if ( version == null ) {
-				plugin = DB.Plugin.get_latest(plugin_name);
+				plugin = DB.Implementation.Plugin.get_latest(plugin_name);
 			} else {
-				plugin = DB.Plugin.get_with_version( plugin_name, version );
+				plugin = DB.Implementation.Plugin.get_with_version( plugin_name, version );
 			}
 			if ( plugin == null ) {
 				state.response.status = 404;
@@ -40,7 +40,7 @@ namespace PluginService.Controller.Service {
 				return new Entity.Error("Missing name");
 			}
 
-			var plugin = DB.Plugin.get_latest(plugin_name);
+			var plugin = DB.Implementation.Plugin.get_latest(plugin_name);
 			if ( plugin == null ) {
 				state.response.status = 404;
 				return new Entity.Error("Not found");
@@ -51,7 +51,7 @@ namespace PluginService.Controller.Service {
 			try {
 				if ( parser.load_from_file( "%s/%s-%s.manifest.json".printf( plugin_dir, plugin.name, plugin.version ) ) ) {
 					var manifest = (PluginManifest) Json.gobject_deserialize( typeof(PluginManifest), parser.get_root() );
-					var author = new Almanna.Search<DB.Author>().lookup( plugin.author_id );
+					var author = new Almanna.Search<DB.Implementation.Author>().lookup( plugin.author_id );
 					manifest.author = "%s <%s>".printf( author.name, author.sanitized_email() );
 					return manifest;
 				}
@@ -86,7 +86,7 @@ namespace PluginService.Controller.Service {
 			var root_object = parser.get_root().get_object();
 			foreach ( var plugin_node in root_object.get_array_member("plugins").get_elements() ) {
 				var plugin_result = (Entity.Plugin) Json.gobject_deserialize( typeof(Entity.Plugin), plugin_node );
-				var newer = DB.Plugin.get_newer ( plugin_result.name, plugin_result.version );
+				var newer = DB.Implementation.Plugin.get_newer ( plugin_result.name, plugin_result.version );
 				if ( newer != null ) {
 					results.plugins.add(
 						new Entity.Plugin( newer.name, newer.version, newer.description )

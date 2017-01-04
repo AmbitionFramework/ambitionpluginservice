@@ -1,4 +1,4 @@
-@parameters( ArrayList<Plugin> plugins )
+@parameters( ArrayList<Implementation.Plugin> plugins )
 @using PluginService.Model.DB
 @using Gee
 @process( "Component.header", "Plugin List" )

@@ -1,4 +1,4 @@
-@parameters( ArrayList<Plugin> recent_plugins )
+@parameters( ArrayList<Implementation.Plugin> recent_plugins )
 @using PluginService.Model.DB
 @using Gee
 @process( "Component.header", "Ambition Plugin Library", false )

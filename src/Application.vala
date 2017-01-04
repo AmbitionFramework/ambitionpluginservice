@@ -28,7 +28,7 @@ namespace PluginService {
 				.target( Controller.Plugins.view );
 			add_route()
 				.path("/generate/[file]")
-				.method( HttpMethod.GET )
+				.method( HttpMethod.POST )
 				.target( Controller.Plugins.generate );
 			add_route()
 				.path("/service/search")

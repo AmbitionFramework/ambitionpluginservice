@@ -19,9 +19,12 @@ CREATE TABLE plugin (
 	size_k integer default 0 not null,
 	views integer default 0 not null,
 	installs integer default 0 not null,
+	latest integer default 0 not null,
 	name varchar(128) not null,
 	version varchar(16) not null,
 	description text not null,
+	min_version varchar(16) default '0.1.0',
+	max_version varchar(16) default '0.1.0',
 	filename varchar(128),
 	url varchar(255),
 	date_created timestamp,
@@ -52,6 +55,7 @@ CREATE TABLE plugin_install (
 	plugin_install_id serial primary key,
 	plugin_id integer not null,
 	version varchar(16),
+	ambition_version varchar(16),
 	ip_address varchar(15) not null,
 	date_created timestamp
 ) WITH OIDS;
